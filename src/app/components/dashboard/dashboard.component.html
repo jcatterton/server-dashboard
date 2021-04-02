@@ -1,0 +1,18 @@
+<mat-card class="wrapper">
+  <span class="header">Server Dashboard</span>
+  <div class="grid-container">
+    <div class="grid-item" *ngFor="let app of apps">
+      <div class="app-info">
+        <div
+          [ngClass]="app.healthy ? 'healthy-circle' : 'unhealthy-circle'"
+          (click)="navigateToApp(app)"
+          matTooltip="{{ getTooltip(app).join('\n') }}"
+          matTooltipShowDelay="1000"
+        >
+          <img src="{{ app.config.imageLocation }}">
+        </div>
+        <span>{{ app.config.appName }}</span>
+      </div>
+    </div>
+  </div>
+</mat-card>
