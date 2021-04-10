@@ -30,7 +30,7 @@ spec:
               port: {{ .Values.service.internalPort }}
             initialDelaySeconds: 10
           volumeMounts:
-          - mountPath: /src/app/config/apps.json
+          - mountPath: /usr/share/nginx/html/assets/apps.json
             name: config
             subPath: apps.json
       volumes:

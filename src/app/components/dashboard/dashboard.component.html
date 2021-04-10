@@ -1,4 +1,7 @@
-<mat-card class="wrapper">
+<div class="spinner-wrapper" *ngIf="loading">
+  <mat-spinner class="loading-spinner"></mat-spinner>
+</div>
+<mat-card class="wrapper" *ngIf="!loading">
   <span class="header">Server Dashboard</span>
   <div class="grid-container">
     <div class="grid-item" *ngFor="let app of apps">
@@ -6,13 +9,17 @@
         <div
           [ngClass]="app.healthy ? 'healthy-circle' : 'unhealthy-circle'"
           (click)="navigateToApp(app)"
-          matTooltip="{{ getTooltip(app).join('\n') }}"
-          matTooltipShowDelay="1000"
+          (mouseenter)="setHoverAppInfo(app)"
+          (mouseleave)="hoverAppInfo = ['','']"
         >
-          <img src="{{ app.config.imageLocation }}">
+          <img [src]="getImageUrl(app) | secure | async">
         </div>
         <span>{{ app.config.appName }}</span>
       </div>
     </div>
+  </div>
+  <div class="app-hover">
+    <span>{{ hoverAppInfo[0] }}</span>
+    <span>{{ hoverAppInfo[1] }}</span>
   </div>
 </mat-card>
